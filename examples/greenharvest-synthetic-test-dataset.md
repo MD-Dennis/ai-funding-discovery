@@ -2,7 +2,7 @@
 
 *Model-facing input only — no expected answers or ranking key*
 
-**Version 4.0** | 17 October 2026 | Project metadata: GreenHarvest Synthetic Test Suite
+Project metadata: GreenHarvest Synthetic Test Suite
 
 ## Document purpose and handling
 
