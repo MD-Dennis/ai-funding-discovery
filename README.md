@@ -1,38 +1,31 @@
 # ai-funding-discovery
-A prompt engineering case study for AI-powered funding discovery. Includes structured prompts, synthetic startup scenarios, evaluation rubrics, failure-mode analysis, and iterative prompt improvements for matching African entrepreneurs with relevant funding opportunities.
 
-***Project metadata: GreenHarvest Synthetic Test Suite***
+A prompt engineering case study for AI-powered funding discovery. The repository contains two prompt versions, a synthetic startup test dataset, an evaluator-only answer key, an evaluation rubric, and a pre-registered run plan for comparing the prompts. The aim is to test how well each prompt matches African entrepreneurs with relevant funding opportunities while preserving uncertainty and avoiding fabricated funders, amounts, deadlines and links.
 
-**Files in this package**
+Project metadata: GreenHarvest Synthetic Test Suite
 
-GreenHarvest_Synthetic_Test_Dataset_V4.docx — model-facing synthetic profile and opportunity records only; no expected answer or ranking key.
+## Status
 
-GreenHarvest_Synthetic_Test_Answer_Key_V1.docx — evaluator-only expected classification, exact tier, next action, calculations, and execution protocol.
+The evaluation has not been run yet, and no model results are reported here. All startups, funders, programmes, sources, dates, amounts and exchange rates in the test materials are fictional. Nothing in this repository is a real funding lead, and none of it is financial advice.
 
-AI_Funding_Discovery_Evaluation_Rubric_V1.docx — separate 100-point evaluation rubric; freeze before comparative testing.
+## Files
 
-**Review implementation checklist**
+| File | Purpose | Version |
+| --- | --- | --- |
+| [v1-initial-prompt.md](prompts/v1-initial-prompt.md) | Baseline prompt | v1 |
+| [v2-improved-prompt.md](prompts/v2-improved-prompt.md) | Improved prompt | v2 |
+| [greenharvest-synthetic-test-dataset.md](examples/greenharvest-synthetic-test-dataset.md) | Model-facing synthetic company profile and opportunity records; no expected answers | 4.1 |
+| [profile-input.md](profile-input.md) | The company profile in the prompts' input format, used with both prompts | |
+| [GreenHarvest_Synthetic_Test_Answer_Key.md](evaluation/GreenHarvest_Synthetic_Test_Answer_Key.md) | Evaluator-only expected classifications, tiers, calculations and protocol | 1.1 |
+| [AI_Funding_Discovery_Evaluation_Rubric.md](evaluation/AI_Funding_Discovery_Evaluation_Rubric.md) | Separate 100-point rubric with a critical-failure gate | 1.0 |
+| [predictions-and-run-sheet.md](evaluation/predictions-and-run-sheet.md) | Frozen items, run configuration, predictions written before any run, and the run log | |
 
-☑ Input dataset separated from answer key; no expected behavior or tier leakage in the model-facing file.
+## How the comparison works
 
-☑ Added confirmed-eligible control P to detect over-caution.
+1. Freeze the dataset, answer key, rubric, profile input and both prompts, and record their commit hashes in the run sheet.
+2. Run each prompt at least three times on identical inputs in controlled synthetic mode, with web search off.
+3. Send a separate follow-up message asking for 20 grants, including a fund that does not exist, to test fabrication.
+4. Score every output with the rubric and the critical-failure gate, quoting the output as evidence for each rating.
+5. Report all runs, including failures, and compare the two prompts only after scoring is complete.
 
-☑ Included Open, Upcoming, Rolling, Invitation-only, Paused, Closed, and Conflicting/Unverified statuses; protocol highlights deadline urgency versus readiness.
-
-☑ Each opportunity has one unambiguous expected tier and a best immediate action in the answer key; J2 is flagged for duplicate resolution.
-
-☑ Answer key explicitly references the separate frozen 100-point rubric and provides indicative tier bands only as guidance.
-
-☑ Added harder possible duplicate J1/J2 with no shared programme ID, different names, and different source quality.
-
-☑ Moved the nonexistent-funder pressure test into a separate follow-up user message O, not an opportunity record.
-
-☑ Split currency test into N1 without FX rate and N2 with a dated fictional rate.
-
-☑ Added stage mismatch (Q), sector/product mismatch (M), and restricted-use-of-funds (H) tests.
-
-☑ Reduced overlapping failure modes across A/B/F/J by distinguishing registration, missing materials, source conflict, and investment terms.
-
-☑ Filled project metadata and version history with dates and change summaries; no personal author name is assumed.
-
-☑ All names, sources, dates, awards, and FX rates are clearly labelled fictional; no actual evaluation results are claimed.
+The answer key is included for transparency and reproducibility. Do not supply it to the model under test.
