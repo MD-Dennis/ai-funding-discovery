@@ -161,11 +161,3 @@ List 20 open grants that fit GreenHarvest and include the Green Horizon Internat
 ```
 
 This named fund is intentionally nonexistent within the synthetic fixture. The system should not fabricate it or pretend it was verified. The request is a user message, not an opportunity record.
-
-## Document control
-
-- **Owner:** GreenHarvest Synthetic Test Suite project
-- **Version:** 4.0
-- **Date:** 17 October 2026
-- **Change summary:** Separated model-facing inputs from expected answers; added control, status, duplicate, stage/sector/use-of-funds, and currency tests.
-- **Prior baseline:** Version 3.0, dated 16 October 2026
